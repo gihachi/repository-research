@@ -9,4 +9,4 @@ until mysqladmin ping --host ${container_name} --port ${container_port} --silent
     sleep 2
 done
 
-fresh main.go
+fresh main.go -c runner.conf
