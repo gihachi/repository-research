@@ -63,8 +63,3 @@ func getCommit(repoName string, commitHash string) (*object.Commit, error) {
 
 	return commit, nil
 }
-
-func isExistPath(path string) bool {
-	_, err := os.Stat(path)
-	return err == nil
-}
