@@ -2,10 +2,12 @@ package api
 
 import (
 	"errors"
+	"net/http"
 	"os"
 	"path"
 
-	"github.com/gin-gonic/gin"
+	"gihachi/repository-research/api/json"
+
 	"github.com/labstack/echo/v4"
 
 	"gopkg.in/src-d/go-git.v4"
@@ -21,9 +23,11 @@ func GetDiff(c echo.Context) error {
 
 	commit, err := getCommit(repoName, commitHash)
 	if err != nil {
-		return c.JSON(404, gin.H{
-			"message": err.Error(),
-		})
+
+		errJSON := &json.Error{
+			ErrorStr: err.Error(),
+		}
+		return c.JSON(http.StatusNotFound, errJSON)
 	}
 
 	parentCommit, _ := commit.Parent(0)
@@ -33,9 +37,11 @@ func GetDiff(c echo.Context) error {
 
 	treeDiff, _ := parentCommitTree.Patch(commitTree)
 
-	return c.JSON(200, gin.H{
-		"diff": treeDiff.String(),
-	})
+	diffJSON := &json.Diff{
+		DiffStr: treeDiff.String(),
+	}
+
+	return c.JSON(http.StatusOK, diffJSON)
 }
 
 func getCommit(repoName string, commitHash string) (*object.Commit, error) {
