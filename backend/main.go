@@ -22,6 +22,7 @@ func main() {
 
 	e.GET("/", root)
 	e.GET("/diff", api.GetDiff)
+	e.GET("/commit", api.GetCommitInfo)
 	e.Logger.Fatal(e.Start(":3000"))
 }
 

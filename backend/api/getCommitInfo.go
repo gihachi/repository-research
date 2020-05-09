@@ -44,6 +44,35 @@ func GetDiff(c echo.Context) error {
 	return c.JSON(http.StatusOK, diffJSON)
 }
 
+// GetCommitInfo commitの情報を取得
+func GetCommitInfo(c echo.Context) error {
+	repoName := c.QueryParam("repo")
+	commitHash := c.QueryParam("commit")
+
+	commit, err := getCommit(repoName, commitHash)
+	if err != nil {
+
+		errJSON := &json.Error{
+			ErrorStr: err.Error(),
+		}
+		return c.JSON(http.StatusNotFound, errJSON)
+	}
+
+	authorInfo := commit.Author
+	commiterInfo := commit.Committer
+
+	commitJSON := &json.Commit{
+		Hash:         commitHash,
+		Author:       authorInfo.Name,
+		AuthorDate:   authorInfo.When,
+		Commiter:     commiterInfo.Name,
+		CommiterDate: commiterInfo.When,
+		Message:      commit.Message,
+	}
+
+	return c.JSON(http.StatusOK, commitJSON)
+}
+
 func getCommit(repoName string, commitHash string) (*object.Commit, error) {
 
 	basePath := os.Getenv("WORKING_DIR")
