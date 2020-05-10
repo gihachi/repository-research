@@ -46,6 +46,7 @@ services:
     environment:
       PORT: 3002
       HOST: 0.0.0.0
+      BASE_URL: ${API_BASE_URL}
     restart: always
   reverse-proxy:
     depends_on: 
