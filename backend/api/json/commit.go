@@ -6,10 +6,10 @@ import (
 
 // Commit commit のjson表現
 type Commit struct {
-	Hash         string
-	Author       string
-	AuthorDate   time.Time
-	Commiter     string
-	CommiterDate time.Time
-	Message      string
+	Hash         string    `json:"hash"`
+	Author       string    `json:"author"`
+	AuthorDate   time.Time `json:"authorDate"`
+	Commiter     string    `json:"commiter"`
+	CommiterDate time.Time `json:"commiterDate"`
+	Message      string    `json:"message"`
 }
