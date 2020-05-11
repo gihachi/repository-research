@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-main>
-      <el-card>
+      <el-card v-bind:class="{'merge': isMerge, 'not-merge': !isMerge}">
         <div
           slot="header"
           class="clearfix"
@@ -132,6 +132,8 @@ export default {
       if (messages.length > 1) {
         this.description = messages.slice(1, messages.length).join('\n')
       }
+
+      this.isMerge = res.data.isMerge
     }
   },
   methods: {
@@ -167,5 +169,11 @@ export default {
 .line-and-space{
   white-space: pre-wrap;
   word-wrap: break-word;
+}
+.merge .el-card__header{
+  background-color: #ffb7b7;
+}
+.not-merge .el-card__header{
+  background-color: #a8d3ff;
 }
 </style>
