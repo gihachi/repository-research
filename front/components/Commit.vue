@@ -12,6 +12,7 @@
           <p
             class="line-and-space"
             id="commit-description"
+            v-if="description === ''"
           >
             {{ description }}
           </p>
