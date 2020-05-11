@@ -12,4 +12,5 @@ type Commit struct {
 	Commiter     string    `json:"commiter"`
 	CommiterDate time.Time `json:"commiterDate"`
 	Message      string    `json:"message"`
+	IsMerge      bool      `json:"isMerge"`
 }

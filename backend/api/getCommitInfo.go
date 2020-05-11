@@ -68,6 +68,7 @@ func GetCommitInfo(c echo.Context) error {
 		Commiter:     commiterInfo.Name,
 		CommiterDate: commiterInfo.When,
 		Message:      commit.Message,
+		IsMerge:      commit.NumParents() > 1,
 	}
 
 	return c.JSON(http.StatusOK, commitJSON)
